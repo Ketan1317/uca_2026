@@ -4,16 +4,21 @@
 #include <unistd.h>
 
 #define BUF_SIZE 1024
-int main(int argc, char* argv[]){
+// argc -> argument counter
+// argv -> argument vector ... It is an array of pointers to characters (strings)
+int main(int argc, char* argv[]){ // %s expects a pointer (char *) to the first character of a null-terminated string
 	int inputFd,outputFd, openFlags;
-	mode_t filePerms;
-	ssize_t numRead;
+	mode_t filePerms; // mode_t is an integer type used for File permissions
+	ssize_t numRead; // Signed Size Type
 	char buf[BUF_SIZE];
 	
 	if(argc != 3){
 		printf("Usage ./a.out File1 File2");
 		exit(-1);	
 	}	
+	// STDIN_FILENO   = 0
+	// STDOUT_FILENO  = 1
+	// STDERR_FILENO  = 2
 
 	inputFd = open(argv[1],O_RDONLY);
 	if(inputFd == -1){
@@ -39,4 +44,5 @@ int main(int argc, char* argv[]){
 	close(inputFd);
 	close(outputFd);
 	return 0;
+	// return 1; "Some error occurred."
 }

@@ -1,0 +1,212 @@
+===========================================
+FILE DESCRIPTORS (FD)
+===========================================
+
+A File Descriptor (FD) is an integer that identifies an open file or I/O resource
+within a process.
+
+Working:
+open()
+    ↓
+Kernel locates the file
+    ↓
+Checks permissions
+    ↓
+Creates an Open File Object (metadata)
+    ↓
+Returns a File Descriptor (FD)
+
+Example:
+int fd = open("notes.txt", O_RDONLY);
+
+The kernel stores information such as:
+- Current file offset (read/write position)
+- Access flags (read, write, append, etc.)
+- File permissions
+- Inode information
+- Reference count
+
+===========================================
+STANDARD FILE DESCRIPTORS
+===========================================
+
+0 → stdin   → Standard Input  → Keyboard
+1 → stdout  → Standard Output → Terminal
+2 → stderr  → Standard Error  → Error Output
+
+These descriptors are automatically created for every process.
+Linux usually assigns the lowest available file descriptor when opening a new file.
+
+Example FD Table:
+
+FD      Resource
+-------------------------
+0       stdin
+1       stdout
+2       stderr
+3       a.txt
+4       b.txt
+5       c.txt
+
+If FD 4 is closed, the next open() call will most likely return FD 4.
+
+===========================================
+<unistd.h> Unix Standard
+===========================================
+
+The primary POSIX header for low-level system calls.
+Common functions:
+read()
+write()
+close()
+fork()
+exec()
+pipe()
+dup()
+dup2()
+lseek()
+getcwd()
+chdir()
+
+===========================================
+<fcntl.h> File Control
+===========================================
+
+Provides:
+- open()
+- File control functions
+- File opening flags
+
+Example:
+
+int fd = open(
+    "a.txt",
+    O_WRONLY | O_CREAT | O_TRUNC,
+    0644
+);
+
+Return Value:
+- Valid File Descriptor (0 or greater)
+- -1 on error
+
+Common Flags:
+
+O_RDONLY   → Open for reading only
+O_WRONLY   → Open for writing only
+O_RDWR     → Open for reading and writing
+O_CREAT    → Create file if it doesn't exist
+O_APPEND   → Append data to the end of the file
+O_TRUNC    → Truncate (erase) existing file contents
+O_EXCL     → Fail if the file already exists
+             (usually combined with O_CREAT)
+
+===========================================
+read()
+===========================================
+
+Syntax:
+char buffer[100];
+int bytesRead = read(fd, buffer, 100);
+
+Parameters:
+fd      → File Descriptor
+buffer  → Destination buffer
+100     → Maximum number of bytes to read
+
+Return Value:
+> 0  → Number of bytes successfully read
+0    → End of File (EOF)
+-1   → Error
+
+===========================================
+write()
+===========================================
+
+Syntax:
+int bytesWritten = write(fd, buffer, n);
+
+Parameters:
+fd      → File Descriptor
+buffer  → Source buffer
+n       → Number of bytes to write
+
+Return Value:
+> 0  → Number of bytes successfully written
+-1   → Error
+
+===========================================
+close()
+===========================================
+
+Syntax:
+close(fd);
+
+Purpose:
+- Closes the File Descriptor
+- Releases kernel resources
+- Makes the descriptor available for reuse
+
+Return Value:
+0   → Success
+-1  → Error
+
+===========================================
+READING IN CHUNKS
+===========================================
+
+Instead of loading the entire file into memory:
+
+File
+  │
+  ▼
+Read 1024 bytes
+  │
+  ▼
+Process Data
+  │
+  ▼
+Read Next 1024 bytes
+  │
+  ▼
+Process Data
+  │
+  ▼
+Repeat until EOF
+
+Advantages:
+- Low memory usage
+- Efficient for very large files
+- Used by commands like cat, cp, grep, and many network applications
+
+===========================================
+SYSTEM CALL FLOW
+===========================================
+
+Example:
+
+read(fd, buffer, 100);
+
+Execution Flow:
+
+Your Program (User Space)
+        │
+        ▼
+glibc Wrapper Function
+        │
+        ▼
+System Call Interface
+        │
+        ▼
+Linux Kernel
+        │
+        ▼
+Filesystem Driver
+        │
+        ▼
+Disk / Device
+        │
+        ▲
+Kernel copies data into the user buffer
+        │
+        ▲
+read() returns to the program

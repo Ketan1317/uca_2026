@@ -27,7 +27,8 @@ void writeNumber(int n) {
 int main(int argc, char *argv[]) {
 
     if (argc < 2)
-        return 1;
+        printf("Usage ./a.out --add Log Data or --view");
+		exit(-1);
 
     if (strcmp(argv[1], "--add") == 0) {
         if (argc < 3){
