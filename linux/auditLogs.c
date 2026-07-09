@@ -15,7 +15,8 @@ int main(int argc, char *argv[]) {
 
 
     if(argc < 2){
-        printf("Usage %s --view or --add log data",argv[0]);
+        printf("Usage: %s --add \"message\"\n", argv[0]);
+        printf("       %s --view\n", argv[0]);
         exit(-1);
     }
 
@@ -56,7 +57,8 @@ int main(int argc, char *argv[]) {
         close(inputFd);
     }
     else{
-        printf("Usage %s --view or --add log data",argv[0]);
+        printf("Usage: %s --add \"message\"\n", argv[0]);
+        printf("       %s --view\n", argv[0]);
         close(inputFd);    
         close(outputFd); 
         exit(-1);
