@@ -5,67 +5,65 @@
 #include <stdio.h>
 
 #define LOGFILE "audit.log"
-
-// To write line numbers
-void writeNumber(int n) {
-    char buf[20];
-    int i = 0;
-    if (n == 0) {
-        char c = '0';
-        write(1, &c, 1);
-        return;
-    }
-
-    while (n > 0) {
-        buf[i++] = (n % 10) + '0';
-        n /= 10;
-    }
-    while (i--)
-        write(1, &buf[i], 1);
-}
+#define BUFFER_SIZE 1024
 
 int main(int argc, char *argv[]) {
+    int inputFd,outputFd,openFlags;
+    char buffer[BUFFER_SIZE];
+    ssize_t numRead;
+    mode_t filePerms;
 
-    if (argc < 2)
-        printf("Usage ./a.out --add Log Data or --view");
-		exit(-1);
 
-    if (strcmp(argv[1], "--add") == 0) {
-        if (argc < 3){
-            printf("Usage ./a.out --add Log Data");
+    if(argc < 2){
+        printf("Usage %s --view or --add log data",argv[0]);
+        exit(-1);
+    }
+
+    if(strcmp(argv[1],"--add") == 0){
+        if(argc < 3){
+            printf("Usage %s --add log data",argv[0]);
+            exit(-1);
+        }
+        filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+        openFlags = O_CREAT | O_WRONLY | O_APPEND;
+        outputFd = open(LOGFILE,openFlags,filePerms);
+        if(outputFd < 0){
+            printf("Error creating log file");
 		    exit(-1);
         }
 
-        int fd = open(LOGFILE, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        write(fd, argv[2], strlen(argv[2]));
-        write(fd, "\n", 1);
-        close(fd);
+        write(outputFd,argv[2],strlen(argv[2]));
+        write(outputFd,"\n",1);
+        close(outputFd);
     }
-
-    else if (strcmp(argv[1], "--view") == 0) {
-
-        int fd = open(LOGFILE, O_RDONLY);
-        if (fd < 0){
+    else if(strcmp(argv[1],"--view") == 0){
+        inputFd = open(LOGFILE,O_RDONLY);
+        if(inputFd < 0){
             printf("Usage ./a.out --view ");
 		    exit(-1);
         }
-            
-        char ch;
-        int line = 1;
 
-        writeNumber(line);
-        write(1, ": ", 2);
-
-        while (read(fd, &ch, 1) > 0) {
-            write(1, &ch, 1);
-            if (ch == '\n') {
-                line++;
-                writeNumber(line);
-                write(1, ": ", 2);
+        while((numRead = read(inputFd,buffer,BUFFER_SIZE)) > 0){
+            for(int i=0;i<numRead;i++){
+                if(buffer[i] == '\n'){
+                    write(1,"\n",1);
+                }
+                else{
+                    write(1,&buffer[i],1);
+                }
             }
         }
-        close(fd);
+        close(inputFd);
     }
+    else{
+        printf("Usage %s --view or --add log data",argv[0]);
+        close(inputFd);    
+        close(outputFd); 
+        exit(-1);
+    }
+
+    close(inputFd);    
+    close(outputFd);    
 
     return 0;
 }
