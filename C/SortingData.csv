@@ -50,7 +50,7 @@ Heap,16000,Ascending,0.004697
 Bubble,16000,Descending,0.459942
 Insertion,16000,Descending,0.213994
 Selection,16000,Descending,0.165145
-Quick,16000,Descending,0.242462
+Quick,16000,Descending,0.232462
 Merge,16000,Descending,0.000965
 Heap,16000,Descending,0.002728
 Bubble,20000,Random,0.935922
