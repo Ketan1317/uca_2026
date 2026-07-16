@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void reverse(char *str){
     int length = strlen(str);
@@ -15,9 +16,12 @@ void reverse(char *str){
     }
 }
 
-int main(){
-    char str[100];
-    fgets(str,sizeof(str),stdin);
+int main(int argc,char *argv[]){
+    if(argc < 2){
+        printf("Usage : %s <string> \n",argv[0]);
+        exit(-1);
+    }
+    char *str = argv[1];
     reverse(str);
     printf("Reversed String: %s\n",str);
 }
