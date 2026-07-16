@@ -17,4 +17,4 @@ awk -F',' '{print NR " (" NF  " Fields) : " $0}' data.txt
 echo
 
 echo "---- Total Engineering Cost ----"
-awk -F',' -v total=0 '{ if($2 == "Engineering") total += $3*$4} END {print total}' data.txt
+awk -F',' -v total=0 '{ if($2 == "Engineering") total += $3*$4} END {print "Total Engineering Payroll: $" total}' data.txt
