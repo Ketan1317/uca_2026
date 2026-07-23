@@ -74,6 +74,8 @@ int main(int argc, char *argv[]) {
 
             else {
                 if(write(outputFd, &buf[i], 1) != 1) {
+                    close(inputFd);
+                    close(outputFd);
                     printf("\nFailed to write into file!");
                     exit(-1);
                 }
@@ -81,6 +83,8 @@ int main(int argc, char *argv[]) {
 
         }
     }
-
+    
+    close(inputFd);
+    close(outputFd)
     return 0;
 }
