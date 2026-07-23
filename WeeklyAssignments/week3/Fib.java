@@ -50,6 +50,7 @@ public class Fib {
                 sum += ans;
             }
         }
+        sc.close();
         System.out.println("Sum by recursive Approach:" + sum);
     }
 }
