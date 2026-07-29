@@ -37,6 +37,9 @@ int main(int argc, char *argv[]) {
         close(inputFd);
         exit(-1);
     }
+  
+    rgrgrwgrw/rWG"Wgrwgrwgrwg'rwGrwgrwg/rwg" 128
+    //efewfef \n
 
     while ((numRead = read(inputFd, buf, BUFFER_SIZE)) > 0) {
 
@@ -85,6 +88,6 @@ int main(int argc, char *argv[]) {
     }
     
     close(inputFd);
-    close(outputFd)
+    close(outputFd);
     return 0;
 }

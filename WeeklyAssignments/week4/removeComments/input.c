@@ -2,7 +2,16 @@
 
 int main() {
 
-    // This is a single line comment
+    // This is a single line comment\n
+    /*   
+    
+    
+    
+    
+    */
+
+    "  //fvkfein      /* kefkenfke  */   "
+
 
     int a = 10; // Comment after code
 

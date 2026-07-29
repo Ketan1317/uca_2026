@@ -35,11 +35,18 @@ public class Fib {
         return dp[n] = rec(n - 1, dp) + rec(n - 2, dp);
     }
 
+    public static  int getNthEvenNumber(int n){
+        if(n==1) return 2;
+        if(n==2) return 8;
+
+        return 4*getNthEvenNumber(n-1) + getNthEvenNumber(n-2);
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        System.out.println("Sum by logarithimic approach:" + logarithimic(n));
+        // System.out.println("Sum by logarithimic approach:" + logarithimic(n));
         int sum = 0;
         Integer[] dp = new Integer[300];
         int num = 0;
@@ -51,6 +58,7 @@ public class Fib {
             }
         }
         sc.close();
-        System.out.println("Sum by recursive Approach:" + sum);
+        // System.out.println("Sum by recursive Approach:" + sum);
+        System.out.println("Nth even Number in Fibonacci Seq: " + getNthEvenNumber(5));
     }
 }

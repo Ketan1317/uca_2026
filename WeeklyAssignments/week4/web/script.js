@@ -1,22 +1,26 @@
-const { Worker } = require("worker_threads");
-const worker = new Worker("./worker.js");
+const box = document.getElementById("box");
+const ul = document.createElement("ul");
 
-worker.postMessage({
-  url: "https://dummyjson.com/users",
-});
+const fetchData = async () => {
+  try {
+    const response = await fetch("https://dummyjson.com/users");
 
-// Receive message from worker
-worker.on("message", (users) => {
-  if (users.error) {
-    console.error("Worker error:", users.error);
-    return;
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    data.users.forEach((user) => {
+      const li = document.createElement("li");
+      li.textContent = `${user.firstName} ${user.lastName} - ${user.email}`;
+      ul.appendChild(li);
+    });
+
+    box.appendChild(ul);
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    box.textContent = "No users found";
   }
+};
 
-  users.forEach((user) => {
-    console.log(`${user.firstName} ${user.lastName} - ${user.email}`);
-  });
-});
-
-worker.on("error", (error) => {
-  console.error("Worker Script Error:", error);
-});
+fetchData();
