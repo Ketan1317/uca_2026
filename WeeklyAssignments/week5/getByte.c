@@ -8,6 +8,6 @@ int getByte(int x,int n){
 }
 int main(){
     int num = getByte(0x12345678,1);
-    printf("%d\n",num);
+    printf("0x%08X\n",num);
     return 0;
 }

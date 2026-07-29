@@ -8,7 +8,7 @@ int logicalShift(int x,int n) {
 }
 
 int main(){
-    printf("%d\n",logicalShift(0x87654321,4));
+    printf("0x%08X\n",logicalShift(0x87654321,4));
     // x>>4: 1111 1000 0111 0110 0101 0100 0011 0010
     // mask: 0000 1111 1111 1111 1111 1111 1111 1111
     // AND:  0000 1000 0111 0110 0101 0100 0011 0010
