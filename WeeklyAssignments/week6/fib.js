@@ -1,31 +1,20 @@
-function* calculator(start) {
-  let init = start;
-  while (true) {
-    const inp = yield init;
-    let op = inp.operation;
-    let val = inp.value;
-    switch (op) {
-      case "add":
-        init += val;
-        break;
-      case "sub":
-        init -= val;
-        break;
-      case "div":
-        init = init / val;
-        break;
-      case "mul":
-        init *= val;
-        break;
-      default:
-        break;
+function* fibonacci(){
+    let a = 0;
+    let b = 1;
+    while(true){
+        yield a;
+        let temp = a + b;
+        a = b;
+        b = temp;
     }
-  }
+
 }
 
-const calc = calculator(50);
-console.log(calc.next()); // 50
-
-console.log(calc.next({ operation: "add", value: 30 }));
-console.log(calc.next({ operation: "mul", value: 2 }));
-console.log(calc.next({ operation: "sub", value: 20 }));
+const fib = fibonacci();
+console.log(fib.next().value);
+console.log(fib.next().value);
+console.log(fib.next().value);
+console.log(fib.next().value);
+console.log(fib.next().value);
+console.log(fib.next().value);
+console.log(fib.next().value);
