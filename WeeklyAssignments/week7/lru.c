@@ -57,6 +57,7 @@ void simulate_lru(int page_requests[], int num_requests, int num_frames) {
 int main() {
     int requests[] = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
     int num_requests = sizeof(requests) / sizeof(requests[0]);
+    // 
 
     simulate_lru(requests, num_requests, 3);
 
