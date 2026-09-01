@@ -1,5 +1,16 @@
 import java.util.*;
 
+// Comparable → compareTo(T o) → defines natural/default ordering -
+// class Employee implements Comparable<Employee> {
+    // public int compareTo(Employee other) {
+        // return this.employeeId - other.employeeId;
+    // }
+// }
+
+// Comparator → compare(T o1, T o2) → defines custom ordering -
+// Comparator<Employee> bySalary = (e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary());
+// employees.sort(bySalary);
+
 public class ComparableAndComparator {
 
     public static boolean isPrime(int num) {
