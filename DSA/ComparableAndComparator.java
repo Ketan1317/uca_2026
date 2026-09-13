@@ -71,7 +71,7 @@ public class ComparableAndComparator {
         ArrayList<UCAStudent> std = new ArrayList<>();
         std.add(new UCAStudent("Ketan", 9.85d));
         std.add(new UCAStudent("garvit", 1.85d));
-        std.add(new UCAStudent("gshmit", 1.85d));
+        std.add(new UCAStudent("ashmit", 1.85d));
 
         Collections.sort(std);
         System.out.println(std);

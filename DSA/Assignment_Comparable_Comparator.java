@@ -9,7 +9,7 @@ import java.time.LocalDate;
 // 4. Sort by department, then by name within each department
 // 5. Sort by age, ascending
 // 6. Sort by joining date, oldest employee (earliest date) first
-// 7. Sort by rating descending, then by salary descending as a tiebreaker
+// 7. Sort by rating descending, then by salary descending as a tie breaker
 
 public class Assignment_Comparable_Comparator {
     public static void main(String[] args) {
@@ -26,6 +26,7 @@ public class Assignment_Comparable_Comparator {
         // 1. Collections.sort(employees, (a, b) -> a.getName().compareTo(b.getName()));
         // 2. Collections.sort(employees,(a,b) -> Double.compare(b.getSalary(),
         // a.getSalary()));
+        // 3. 
         Collections.sort(employees, (a, b) -> {
 
             boolean aPriority = a.getName().startsWith("A") && a.getSalary() > 100000;

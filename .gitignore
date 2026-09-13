@@ -2,3 +2,4 @@
 node_modules
 a.out
 *.class
+run.sh
