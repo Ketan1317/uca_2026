@@ -8,10 +8,10 @@ volatile sig_atomic_t signal_count = 0;
 
 void handle_sigint(int sig) {
     signal_count++;
-    printf("\nCtrl+C pressed! Signal count: %d\n", signal_count);
+    printf("\nCtrl+C pressed...Signal count: %d\n", signal_count);
 
     if (signal_count == 3) {
-        printf("SIGINT received 3 times. Exiting program...\n");
+        printf("SIGINT received 3 times...Exiting program...\n");
         exit(0);
     }
 }
