@@ -19,6 +19,5 @@ class IntersectionOfTwoSortedLL {
             }
         }
         return dummy.next;
-        
     }
 }

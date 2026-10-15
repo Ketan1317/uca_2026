@@ -101,8 +101,8 @@ class BST {
 
     int count = 0;
 
-    count += getHeight(root.left);
-    count += getHeight(root.right);
+    count += countLeafNodes(root.left);
+    count += countLeafNodes(root.right);
 
     return count;
   }
@@ -119,6 +119,7 @@ class BST {
   }
 
   public int getDiameter(Node root) {
+    diameter = 0;
     if (root == null) {
       return 0;
     }
@@ -135,7 +136,7 @@ class BST {
     int left = helperForDiameter(root.left);
     int right = helperForDiameter(root.right);
 
-    diameter = Math.max(diameter,left + 1 + right);
+    diameter = Math.max(diameter,left + right);
 
     return 1 + Math.max(left,right);
 
@@ -165,7 +166,7 @@ class BST {
         else{
             int successor  = getMinimum(root.right);
             root.data = successor ;
-            return deleteInBST(root.right, successor );
+            root.right = deleteInBST(root.right, root.data);
         }
     }
     return root;

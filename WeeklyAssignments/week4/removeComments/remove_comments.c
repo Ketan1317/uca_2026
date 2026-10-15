@@ -38,9 +38,6 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
   
-    rgrgrwgrw/rWG"Wgrwgrwgrwg'rwGrwgrwg/rwg" 128
-    //efewfef \n
-
     while ((numRead = read(inputFd, buf, BUFFER_SIZE)) > 0) {
 
         for(int i = 0; i < numRead; i++) {

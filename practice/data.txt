@@ -1,0 +1,5 @@
+apple COLOR_RED 10 COLOR_RED
+banana yellow 20
+cherry COLOR_RED 30
+apple green 15
+

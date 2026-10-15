@@ -1,5 +1,4 @@
 public class QuickSelect {
-
     public static void main(String[] args) {
         int[] arr = {2, 4, 5, 12, 15, 3};
         int k = 4;

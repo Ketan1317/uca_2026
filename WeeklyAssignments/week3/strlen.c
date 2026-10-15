@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-int my_strlen(const char *str){
-    const char *ptr = str;
+int my_strlen(char *str){
+    char *ptr = str;
     while(*ptr != '\0'){
         ptr++;
     }
